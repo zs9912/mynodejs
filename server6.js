@@ -40,16 +40,12 @@ app.get('/:id', function (req, res) {
    });
 })
 
-//delete one user, something's wrong
-var id = 2;
-app.get('/deleteUser', function (req, res) {
-
+//delete one user
+app.get('/deleteUser/:id', function (req, res, next) {
    // First read existing users.
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       var users = JSON.parse( data );
-       //delete users["user" + id];
-       //users.splice(id-1, 1);
-	   
+       var users = JSON.parse( data );       
+	   delete users["user" + req.params.id];
        console.log( users );
        res.end( JSON.stringify(users));
    });
